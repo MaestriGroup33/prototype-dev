@@ -1,0 +1,53 @@
+{% load allauth %}
+{% load crispy_forms_tags %}
+
+{% if attrs.type == "textarea" %}
+  <div class="mb-3">
+    <label for="{{ attrs.id }}" class="block text-sm font-medium text-gray-700">{% slot label %}</label>
+    <textarea {% if attrs.required %}required{% endif %}
+              {% if attrs.rows %}rows="{{ attrs.rows }}"{% endif %}
+              {% if attrs.disabled %}disabled{% endif %}
+              {% if attrs.readonly %}readonly{% endif %}
+              {% if attrs.checked %}checked{% endif %}
+              {% if attrs.name %}name="{{ attrs.name }}"{% endif %}
+              {% if attrs.id %}id="{{ attrs.id }}"{% endif %}
+              {% if attrs.placeholder %}placeholder="{{ attrs.placeholder }}"{% endif %}
+              class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">{% slot value %}{% endslot %}</textarea>
+  </div>
+{% elif attrs.type == "radio" %}
+  <div class="mb-3">
+    <div class="flex items-center">
+      <input {% if attrs.required %}required{% endif %}
+             {% if attrs.disabled %}disabled{% endif %}
+             {% if attrs.readonly %}readonly{% endif %}
+             {% if attrs.checked %}checked{% endif %}
+             {% if attrs.name %}name="{{ attrs.name }}"{% endif %}
+             {% if attrs.id %}id="{{ attrs.id }}"{% endif %}
+             {% if attrs.placeholder %}placeholder="{{ attrs.placeholder }}"{% endif %}
+             {% if attrs.autocomplete %}autocomplete="{{ attrs.autocomplete }}"{% endif %}
+             value="{{ attrs.value|default_if_none:"" }}"
+             type="{{ attrs.type }}"
+             class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
+      <label class="ml-2 block text-sm leading-5 text-gray-900"
+             for="{{ attrs.id }}">{% slot label %}</label>
+    </div>
+  </div>
+{% else %}
+  <div class="mb-3">
+    <label for="{{ attrs.id }}" class="block text-sm font-medium text-gray-700">{% slot label %}</label>
+    <input {% if attrs.required %}required{% endif %}
+           {% if attrs.disabled %}disabled{% endif %}
+           {% if attrs.readonly %}readonly{% endif %}
+           {% if attrs.checked %}checked{% endif %}
+           {% if attrs.name %}name="{{ attrs.name }}"{% endif %}
+           {% if attrs.id %}id="{{ attrs.id }}"{% endif %}
+           {% if attrs.placeholder %}placeholder="{{ attrs.placeholder }}"{% endif %}
+           {% if attrs.autocomplete %}autocomplete="{{ attrs.autocomplete }}"{% endif %}
+           value="{{ attrs.value|default_if_none:"" }}"
+           type="{{ attrs.type }}"
+           class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+  </div>
+{% endif %}
+{% if slots.help_text %}
+  <div class="text-sm text-gray-500">{% slot help_text %}{% endslot %}</div>
+{% endif %}

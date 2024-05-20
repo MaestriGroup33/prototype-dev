@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  },
+  "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/typography": "^0.5.13",
+    "caniuse-lite": "^1.0.30001620",
+    "flowbite": "^2.3.0",
+    "htmx": "^0.0.2",
+    "jiti": "^1.21.0"
+  }
+}
