@@ -8,35 +8,51 @@ repos:
     rev: v4.6.0
     hooks:
       - id: trailing-whitespace
+        exclude: '^TODO\.md$'
       - id: end-of-file-fixer
+        exclude: '^TODO\.md$'
       - id: check-json
+        exclude: '^TODO\.md$'
       - id: check-toml
+        exclude: '^TODO\.md$'
       - id: check-xml
+        exclude: '^TODO\.md$'
       - id: check-yaml
+        exclude: '^TODO\.md$'
       - id: debug-statements
+        exclude: '^TODO\.md$'
       - id: check-builtin-literals
+        exclude: '^TODO\.md$'
       - id: check-case-conflict
+        exclude: '^TODO\.md$'
       - id: check-docstring-first
+        exclude: '^TODO\.md$'
       - id: detect-private-key
+        exclude: '^TODO\.md$'
 
   - repo: https://github.com/adamchainz/django-upgrade
     rev: '1.17.0'
     hooks:
       - id: django-upgrade
         args: ['--target-version', '4.2']
+        exclude: '^TODO\.md$'
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.4.4
     hooks:
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
+        exclude: '^TODO\.md$'
       - id: ruff-format
+        exclude: '^TODO\.md$'
 
   - repo: https://github.com/Riverside-Healthcare/djLint
     rev: v1.34.1
     hooks:
       - id: djlint-reformat-django
+        exclude: '^TODO\.md$'
       - id: djlint-django
+        exclude: '^TODO\.md$'
 
 # sets up .pre-commit-ci.yaml to ensure pre-commit dependencies stay up to date
 ci:
