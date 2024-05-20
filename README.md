@@ -1,101 +1,155 @@
+
 # Maestri.app
 
 Conectando vidas com inovação, nosso app é uma ponte de oportunidades, onde sonhos se encontram com a realidade.
 
+## Requisitos
+
+- Hatch
+- Docker
+- npm
+
+## Instruções de Configuração
+
+### 1. Clonando o Repositório
+
+```bash
+git clone <url-do-repositorio>
+cd <nome-do-diretorio-clonado>
+```
+
+### 2. Instalando Dependências
+
+```bash
+npm install
+```
+
+### 3. Ativando o Ambiente Virtual
+
+```bash
+hatch shell
+```
+
+### 4. Configuração do Ambiente de Desenvolvimento
+
+```bash
+export COMPOSE_FILE=local.yml
+docker compose build
+docker compose up
+```
+
+### 5. Desenvolvendo o Frontend
+
+Para compilar o Tailwind CSS em tempo real:
+
+```bash
+npx tailwindcss -i ./src/static/css/input.css -o ./src/static/css/output.css --watch
+```
+
+### 6. Referenciando JS com npm
+
+Se necessário, instale as dependências JavaScript via npm:
+
+```bash
+npm install htmx
+```
+
+Crie um link simbólico para htmx (exemplo):
+
+```bash
+ln -s ../../../node_modules/htmx src/static/vendor/htmx
+```
+
+### 7. Configurando no Template `base.html`
+
+Adicione a referência ao `htmx` no seu arquivo `base.html`:
+
+```html
+<script src="{% static 'vendor/htmx/htmx.min.js' %}"></script>
+```
+
+### 8. Badges de Construção
+
+Adicione os seguintes badges ao seu README ou página inicial:
+
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-## Settings
+## Comandos Básicos
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
+### Criando Usuários
 
-## Basic Commands
+- Para criar uma **conta de usuário normal**:
 
-### Setting Up Your Users
+  Vá para a página de inscrição e preencha o formulário. Depois de enviar, você verá uma página de "Verificação de E-mail". No console, copie o link de verificação e abra no navegador.
 
-- To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+- Para criar uma **conta de superusuário**:
 
-- To create a **superuser account**, use this command:
+  ```bash
+  python manage.py createsuperuser
+  ```
 
-      $ python manage.py createsuperuser
+### Checagem de Tipos
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+Para executar checagens de tipo com `mypy`:
 
-### Type checks
+```bash
+mypy src
+```
 
-Running type checks with mypy:
+### Cobertura de Testes
 
-    $ mypy src
+Para rodar os testes, verificar a cobertura e gerar um relatório HTML:
 
-### Test coverage
+```bash
+coverage run -m pytest
+coverage html
+open htmlcov/index.html
+```
 
-To run the tests, check your test coverage, and generate an HTML coverage report:
+### Executando Testes com `pytest`
 
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
+```bash
+pytest
+```
 
-#### Running tests with pytest
+### Live Reloading e Compilação SASS
 
-    $ pytest
-
-### Live reloading and Sass CSS compilation
-
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
+Consulte a [documentação de Live reloading e SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
 
 ### Celery
 
-This app comes with Celery.
-
-To run a celery worker:
+Para rodar um worker do Celery:
 
 ```bash
 cd src
 celery -A config.celery_app worker -l info
 ```
 
-Please note: For Celery's import magic to work, it is important _where_ the celery commands are run. If you are in the same folder with _manage.py_, you should be right.
-
-To run [periodic tasks](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html), you'll need to start the celery beat scheduler service. You can start it as a standalone process:
+Para rodar tarefas periódicas, inicie o beat scheduler service:
 
 ```bash
 cd src
 celery -A config.celery_app beat
 ```
 
-or you can embed the beat service inside a worker with the `-B` option (not recommended for production use):
+Ou embute o serviço beat dentro de um worker (não recomendado para produção):
 
 ```bash
 cd src
 celery -A config.celery_app worker -B -l info
 ```
 
-### Email Server
+### Servidor de E-mail
 
-In development, it is often nice to be able to see emails that are being sent from your application. For that reason local SMTP server [Mailpit](https://github.com/axllent/mailpit) with a web interface is available as docker container.
+Para ver os e-mails enviados durante o desenvolvimento, o SMTP local `Mailpit` está disponível como um container Docker.
 
-Container mailpit will start automatically when you will run all docker containers.
-Please check [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html) for more details how to start all containers.
-
-With Mailpit running, to view messages that are sent by your application, open your browser and go to `http://127.0.0.1:8025`
+Acesse `http://localhost:8025` para visualizar as mensagens.
 
 ### Sentry
 
-Sentry is an error logging aggregator service. You can sign up for a free account at <https://sentry.io/signup/?code=cookiecutter> or download and host it yourself.
-The system is set up with reasonable defaults, including 404 logging and integration with the WSGI application.
+Para configurar o Sentry, você precisa definir a URL DSN no ambiente de produção.
 
-You must set the DSN url in production.
+## Deploy
 
-## Deployment
-
-The following details how to deploy this application.
-
-### Docker
-
-See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
-
-
-npx tailwindcss -i ./src/static/css/input.css -o ./src/static/css/output.css --watch
-mkdir -p src/static/vendor
-
-ln -s ../../../node_modules/htmx src/static/vendor/htmx
+Para detalhes sobre como fazer o deploy, consulte a [documentação de Docker do cookiecutter-django](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
