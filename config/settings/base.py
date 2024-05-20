@@ -85,6 +85,7 @@ THIRD_PARTY_APPS = [
     "crispy_tailwind",
     "django_htmx",
     "template_partials",
+    "django_tailwind_cli",
 ]
 
 LOCAL_APPS = [

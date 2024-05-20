@@ -99,3 +99,8 @@ npx tailwindcss -i ./src/static/css/input.css -o ./src/static/css/output.css --w
 mkdir -p src/static/vendor
 
 ln -s ../../../node_modules/htmx src/static/vendor/htmx
+
+
+pnpm install
+
+pnpm tailwindcss -i src/static/css/input.css -o ./src/static/css/output.css --watch
