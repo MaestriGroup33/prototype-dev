@@ -23,6 +23,7 @@ urlpatterns = [
     # User management
     path("users/", include("src.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
+    path("", include("src.modules.urls")),
     # Your stuff: custom urls includes go here
     # ...
     # Media files

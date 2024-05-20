@@ -1,0 +1,41 @@
+{% extends 'base_.html' %}
+
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Estados e Municípios do Brasil</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.7/dist/tailwind.min.css"
+          rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@1.6.0"></script>
+  </head>
+  <body class="bg-gray-100 p-8">
+    <h1 class="text-xl font-bold mb-4">Seleção de Estado e Município</h1>
+    <div class="mb-4">
+      <select hx-get="https://servicodados.ibge.gov.br/api/v1/localidades/estados"
+              hx-trigger="load"
+              class="px-4 py-2 rounded shadow">
+        <option>Carregando estados...</option>
+      </select>
+    </div>
+    <div id="municipios" class="mt-4">
+      <p>Selecione um estado para ver os municípios.</p>
+    </div>
+    <script>
+      document.body.addEventListener('htmx:afterSwap', function(evt) {
+        if (evt.detail.target.name === 'estados') {
+          evt.detail.target.addEventListener('change', function() {
+            if (this.value) {
+              htmx.ajax(
+                'GET',
+                `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${this.value}/municipios`,
+                '#municipios',
+              );
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

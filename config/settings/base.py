@@ -90,6 +90,24 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "src.users",
+    "src.modules.core.profiles",  # Perfis - app onde ficam armazenadas as informações sobre os perfis dos usuários, alunos, e todos "perfis", tem como principal identificador o CPF, cuindando assim que cada individeuo sejá único dentro de nossa plataforma.
+    "src.modules.core.finances",  # Finanças - app responsável por gerenciar as informações financeiras da Maestri.group, como comissões, transações, contas a pagar, um panorama financeiro e etc...
+    # ----------------------- ADD aqui outros apps da Maestri.group -----------------------#
+    "src.modules.edu",
+    # em src.modules.edu estão todos apps referentes a Maestri.edu
+    "src.modules.edu.campaigns",  # Campanhas - app onde fica toda configuração dos templates, dados das campanhas, valores, preços, modalidade de pagamento, comições, classificações e etc...
+    "src.modules.edu.courses",  # Cursos - app onde fica armazenado a informações sobre os cursos ofertados pela Maestri.edu
+    "src.modules.edu.charges",  # Cobranças - app responsavel por toda gestão financeira dos alunos da Maestri.edu
+    "src.modules.edu.enrollment",  # Matrículas - app onde fica armazenado as informações sobre as matrículas dos alunos nos cursos, bem como informações sobre o curso e situação do aluno referente ao curso matriculado.
+    # ----------------------- ADD aqui outros apps da Maestri.edu -----------------------#
+    "src.modules.tools",
+    # Em Tools estão nossos apps referente a confifuração de ferramentas, bem como ferramentas externas (apis) com como suas respectivas configurações.
+    "src.modules.tools.crewai",  # Configuração da integração com o Crewai (IA)
+    "src.modules.tools.inter",  # App responsável pela nossa integração com o Banco Inter
+    "src.modules.tools.mercado_pago",  # Configuração da integração com o Mercado Pago
+    "src.modules.tools.unsplash",  # Configuração da integração com a API do Unsplash (captador de imagens)
+    "src.modules.tools.whatsapp",  # Configuração da integração com o WhatsApp para env
+    "src.modules.tools.aipag",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -305,7 +323,7 @@ CELERY_TASK_SEND_SENT_EVENT = True
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 # https://docs.allauth.org/en/latest/account/configuration.html
-ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_AUTHENTICATION_METHOD = "email"
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True
 # https://docs.allauth.org/en/latest/account/configuration.html

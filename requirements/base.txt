@@ -31,3 +31,4 @@ django-htmx==1.17.3
 django-template-partials==24.2
 django-extensions
 django-tailwind-cli
+mercadopago

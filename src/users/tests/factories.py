@@ -9,12 +9,13 @@ from src.users.models import User
 
 
 class UserFactory(DjangoModelFactory):
-    username = Faker("user_name")
     email = Faker("email")
     name = Faker("name")
 
     @post_generation
-    def password(self, create: bool, extracted: Sequence[Any], **kwargs):  # noqa: FBT001
+    def password(
+        self, create: bool, extracted: Sequence[Any], **kwargs
+    ):  # noqa: FBT001
         password = (
             extracted
             if extracted
@@ -38,4 +39,4 @@ class UserFactory(DjangoModelFactory):
 
     class Meta:
         model = User
-        django_get_or_create = ["username"]
+        django_get_or_create = ["email"]
