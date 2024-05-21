@@ -38,6 +38,10 @@ urlpatterns = [
         "promoters/",
         TemplateView.as_view(template_name="promoters/home.html"),
     ),
+    path(
+        "app/",
+        TemplateView.as_view(template_name="promoters/app.html"),
+    ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
