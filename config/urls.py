@@ -34,6 +34,10 @@ urlpatterns = [
         "politica/",
         TemplateView.as_view(template_name="pages/politica.html"),
     ),
+    path(
+        "promoters/",
+        TemplateView.as_view(template_name="promoters/home.html"),
+    ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
