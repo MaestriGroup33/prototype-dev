@@ -12,11 +12,27 @@ from drf_spectacular.views import SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="core/home.html"), name="home"),
+    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/",
         TemplateView.as_view(template_name="pages/about.html"),
         name="about",
+    ),
+    path(
+        "home/",
+        TemplateView.as_view(template_name="pages/home.html"),
+    ),
+    path(
+        "login/",
+        TemplateView.as_view(template_name="pages/login.html"),
+    ),
+    path(
+        "register/",
+        TemplateView.as_view(template_name="pages/register.html"),
+    ),
+    path(
+        "politica/",
+        TemplateView.as_view(template_name="pages/politica.html"),
     ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
