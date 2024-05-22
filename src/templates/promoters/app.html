@@ -1,11 +1,17 @@
 {% extends "promoters/base.html" %}
 
 {% block content %}
+<div class="text-white flex flex-row">
 
+    {% block sidebar %}
+        <div class="w-1/4">
+            {% include "./partials/sidebar1.html" %}
+        </div>
+    {% endblock sidebar %}
 
-{% block sidebar %}
-    {% include "./partials/sidebar1.html"%}
-{% endblock sidebar %}
+    <div class="w-3/4">
+        <p>aaaaaaaaaaaaaaaaaaa</p>
+    </div>
 
-    aaa
+</div>
 {% endblock content %}
