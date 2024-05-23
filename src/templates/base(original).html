@@ -145,8 +145,8 @@
       <!-- Your stuff: Third-party javascript libraries go here -->
       <!-- place project specific Javascript in this file -->
       {% compress js %}
-        <script src="{% static 'vendor/flowbite/dist/flowbite.js' %}"></script>
-        <script src="{% static 'vendor/htmx/htmx.js' %}"></script>
+        <script type="application/javascript" src="{% static 'vendor/flowbite/dist/flowbite.js' %}"></script>
+        <script type="application/javascript" src="{% static 'vendor/htmx/htmx.js' %}"></script>
         <script defer src="{% static 'js/project.js' %}"></script>
       {% endcompress %}
     {% endblock javascript %}
