@@ -8,17 +8,17 @@ class PaymentUser:
     email: str
     cellphone: str
     course_code: str
-
+    campaign_id: int
 
 @dataclass
-class PaymentData(models.Model):
+class PaymentData:
     transaction_amount: str
     token: str
     description: str
     payment_method_id: str
     installments: int
     payer: PaymentUser
-    campaign_id: int
+    cpf: str
 
 
 class PaymentUpdate(models.Model):

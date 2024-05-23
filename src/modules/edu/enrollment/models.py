@@ -1,3 +1,4 @@
+import datetime
 import uuid
 
 from django.db import models
@@ -75,12 +76,11 @@ class Clients(models.Model):
     classification = models.ForeignKey(
         Classifications,
         on_delete=models.CASCADE,
-        editable=False,
     )
     updated_at = models.DateTimeField(auto_now=True, editable=False)
 
     def __str__(self):
-        return self.profile_id
+        return self.profile_id.name
 
     class Meta:
         verbose_name = "Cliente"
@@ -93,14 +93,20 @@ class Clients(models.Model):
         status: ClientStatus,
         classification: Classifications,
     ):
+
+        promoter = Profile.objects.get(id=promoter_id)
+
         return Clients.objects.create(
             profile_id=profile,
-            speech_id=promoter_id,
+            promoter_id=promoter,
             status=status,
             classification=classification,
+            created_at=datetime.datetime.now(),
+            updated_at=datetime.datetime.now(),
         )
 
 
+# TODO: ADD ENROLLMENT FEE FIELD
 class Enrollments(models.Model):
     student = models.ForeignKey(Clients, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -117,7 +123,7 @@ class Enrollments(models.Model):
         campaign_id: int | None,
     ):
         if course_code is None:
-            course_code = "0"
+            course_code = 1
 
         if campaign_id is None:
             campaign_id = 1
@@ -134,5 +140,6 @@ class Enrollments(models.Model):
                 student.classification.classification,
             ),
             monthly_payment_counter=0,
+            monthly_value=0,
             payed_enrollment_fee=False,
         )

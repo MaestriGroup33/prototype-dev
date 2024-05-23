@@ -25,10 +25,10 @@ class CampaignEnrollmentSerializer(serializers.Serializer):
     def create(self, validated_data) -> CampaignEnrollmentModel:
         return CampaignEnrollmentModel(
             cpf=validated_data.get("cpf"),
-            phone=validated_data.get("phone"),
-            promoter_id=validated_data.get("promoter_id", None),
-            course_code=validated_data.get("course_code", None),
-            campaign_id=validated_data.get("campaign_id", None),
+            phone=validated_data.get("cellphone"),
+            promoter_id=validated_data.get("promoterId", None),
+            course_code=validated_data.get("courseCode", None),
+            campaign_id=validated_data.get("campaignId", None),
         )
 
 

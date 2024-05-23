@@ -1,24 +1,31 @@
 from decimal import Decimal
 import hashlib
 import hmac
+import uuid
 import mercadopago
 import mercadopago.config
 from django.shortcuts import render
 from src.modules.edu.charges.models import Charge, ChargeStatus
 from src.modules.tools.mercado_pago.models import PaymentUpdate
+from rest_framework.authentication import TokenAuthentication
 from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.serializers import ListSerializer
+from src.modules.tools.mercado_pago.response import PaymentResponseData
 from . import secrets
 from .secrets import secret_key
 from .serializers import PaymentDataSerializer, PaymentUpdateSerializer
 from .models import PaymentData
 from src.modules.core.profiles.models import Profile
-from src.modules.edu.enrollment.models import Enrollments, Clients
+from src.modules.edu.enrollment.models import ClientStatus, Enrollments, Clients
+from src.users.models import User, UserGroups
+from django.utils.crypto import get_random_string
 
 
 class Payment(APIView):
+    authentication_classes = [TokenAuthentication]
+
     @extend_schema(
         request=PaymentDataSerializer,
         responses={201: PaymentDataSerializer},
@@ -27,30 +34,60 @@ class Payment(APIView):
         """
         Creates a new payment
         """
-        payment_data = PaymentDataSerializer(request.data)
+
+        payment: PaymentData = PaymentDataSerializer.create_from_json(request.data)
+
+        payment_data = {
+            "transaction_amount": payment.transaction_amount,
+            "token": payment.token,
+            "description": payment.description,
+            "payment_method_id": payment.payment_method_id,
+            "installments": payment.installments,
+            "payer": {"email": payment.payer.email},
+        }
 
         if isinstance(payment_data, ListSerializer):
-            return Response(status=403)
+            return Response("d")
 
-        print(payment_data.data)
+        print(payment_data)
 
         sdk = mercadopago.SDK(secrets.access_token)
         request_options = mercadopago.config.RequestOptions()
-        request_options.custom_headers = {"x-idempotency-key": "132"}
+        request_options.custom_headers = {"x-idempotency-key": str(uuid.uuid4())}
 
-        # result = sdk.payment().create(payment_data.data, request_options)
-        # payment_response = result["response"]
+        result = sdk.payment().create(payment_data, request_options)
 
-        payment: PaymentData = PaymentDataSerializer.create_from_json(payment_data.data)
+        print(result["response"])
 
-        profile: Profile = Profile.objects.get(cpf=payment.payer.cpf)
+        if result["response"]["status"] == 400:
+            return Response(result["response"]["message"], 400)
+
+        payment_response: PaymentResponseData = PaymentResponseData.create_from_json(
+            result["response"]
+        )
+
+        print("\n payment: ", payment_response, "\n")
+
+        payment: PaymentData = PaymentDataSerializer.create_from_json(request.data)
+
+        print("payment ", payment)
+
+        profile: Profile = Profile.objects.get(cpf=payment.cpf)
 
         client: Clients = Clients.objects.get(profile_id=profile)
+
+        user: User = User.create(
+            name=payment.cpf,
+            email=payment.payer.email,
+            password=get_random_string(length=32),
+            group=UserGroups.Student,
+            covenant_id=None,
+        )
 
         enrollment: Enrollments = Enrollments.create(
             student=client,
             course_code=payment.payer.course_code,
-            campaign_id=payment.campaign_id,
+            campaign_id=payment.payer.campaign_id,
         )
 
         enrollment.save()
@@ -60,8 +97,6 @@ class Payment(APIView):
             value=Decimal(payment.transaction_amount),
             status=ChargeStatus.AWAITING_PAYMENT,
         )
-
-        charge.save()
 
         return Response(request.data)
 
@@ -129,7 +164,15 @@ class PaymentResponse(APIView):
         )
 
         if payment.action == "payment.update" or payment.action == "payment.updated":
-            print("update")
+            charge: Charge = Charge.objects.get(origin_id=payment.payment_id)
+            charge.status = ChargeStatus.PAYED
+            charge.save()
+            enrollment: Enrollments = charge.enrollment_id
+            enrollment.payed_enrollment_fee = True
+            enrollment.save()
+            client: Clients = enrollment.student
+            client.status = ClientStatus.PRE_ENROLLED
+            client.save()
 
         if payment.action == "payment.create":
             print("create")

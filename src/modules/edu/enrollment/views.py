@@ -14,7 +14,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.response import Response
 from rest_framework.serializers import ListSerializer
 from rest_framework.views import APIView
-
+from rest_framework.exceptions import ParseError
 from src.modules.core.profiles.models import Profile
 
 from .forms import ClassificationsForm
@@ -27,7 +27,7 @@ from .serializers import ClassificationsSerializer
 
 
 class CampaignEnrollment(APIView):
-    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    authentication_classes = [TokenAuthentication]
 
     @extend_schema(
         request=CampaignEnrollmentSerializer,
@@ -38,15 +38,20 @@ class CampaignEnrollment(APIView):
         Create a new Enrollment
         """
 
-        campaign_enrollment = CampaignEnrollmentSerializer(data=request.data)
+        print(request.data)
+        # return Response(status=200, data=request.data)
 
-        if not campaign_enrollment.is_valid():
-            return Response(data=campaign_enrollment.data, status=403)
+        campaign_enrollment = CampaignEnrollmentSerializer(data=request.data)
 
         if isinstance(campaign_enrollment, ListSerializer):
             return Response(data=campaign_enrollment.data, status=403)
 
-        pre_enrollment = campaign_enrollment.create(campaign_enrollment.validated_data)
+        pre_enrollment = campaign_enrollment.create(campaign_enrollment.initial_data)
+
+        print(pre_enrollment.cpf)
+
+        if Profile.objects.filter(cpf=pre_enrollment.cpf).exists():
+            raise ParseError("Erro. CPF já cadastrado")
 
         profile: Profile = Profile.create(
             name=pre_enrollment.cpf,
@@ -78,7 +83,7 @@ class CampaignEnrollment(APIView):
             campaign_id=pre_enrollment.campaign_id,
         )
 
-        return Response(data=campaign_enrollment.data)
+        return Response(data=campaign_enrollment.initial_data)
 
 
 class ClassificationsViewSet(viewsets.ModelViewSet):

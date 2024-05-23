@@ -6,7 +6,7 @@ from .models import HighSchool
 from .models import PostGraduation
 from .models import Profile
 
-admin.site.register(Profile)
+# admin.site.register(Profile)
 admin.site.register(Address)
 admin.site.register(HighSchool)
 admin.site.register(Graduation)

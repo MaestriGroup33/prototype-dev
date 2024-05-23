@@ -1,12 +1,15 @@
 import uuid
 from typing import ClassVar
 
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 from django.db.models import CharField
 from django.db.models import EmailField
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
+
+from src.modules.core.profiles.models import Profile
 
 from .managers import UserManager
 
@@ -31,6 +34,13 @@ class User(AbstractUser):
         _("endereço de email"),
         unique=True,
     )
+    user_group = CharField(
+        verbose_name="user group",
+        choices=UserGroups.choices,
+        max_length=2,
+        default="ST",
+    )
+    covenant_id = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
     username = None
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -52,7 +62,7 @@ class User(AbstractUser):
         email: str,
         password: str,
         group: UserGroups | None,
-        covenant_id: uuid.UUID,
+        covenant_id: Profile | None,
     ) -> "User":
         if group is None:
             group = UserGroups.Promoter
@@ -61,12 +71,11 @@ class User(AbstractUser):
             email=email,
             password=password,
             name=name,
-            group=group,
+            user_group=group,
             covenant_id=covenant_id,
         )
 
-        # from .groups import add_user_to_group
-
-        # add_user_to_group(user)
+        # group = Group.objects.get(name=user.groups.name)
+        # group.user_set.add(user)
 
         return user

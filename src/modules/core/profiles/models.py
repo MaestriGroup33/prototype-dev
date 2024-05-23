@@ -90,14 +90,14 @@ class Profile(models.Model):
         help_text=("Perfil cadastrado."),
         editable=False,
     )
-    age = models.PositiveIntegerField(editable=False, verbose_name=("Idade"))
+    age = models.PositiveIntegerField(verbose_name=("Idade"))
 
     class Meta:
         verbose_name_plural = "Perfis"
         unique_together = [["cpf", "birth_date"]]  # Exemplo de uso de unique_together
 
     def __str__(self):
-        return self.name
+        return "name"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -403,7 +403,7 @@ class Documents(models.Model):
         abstract = True
 
     def __str__(self):
-        return self.profile.name
+        return "self.profile.name"
 
 
 class ContractsEnrollment(Documents):
@@ -432,4 +432,4 @@ class ContractsEnrollment(Documents):
         verbose_name_plural = "Contratos de Matrícula"
 
     def __str__(self):
-        return self.profile.name
+        return "self.profile.name"

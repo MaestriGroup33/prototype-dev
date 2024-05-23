@@ -1,4 +1,3 @@
-from django.forms import IntegerField
 from rest_framework import serializers
 from .models import PaymentUpdate, PaymentData, PaymentUser
 
@@ -6,8 +5,6 @@ from .models import PaymentUpdate, PaymentData, PaymentUser
 class PaymentUserSerializer(serializers.Serializer):
     cpf = serializers.CharField()
     email = serializers.EmailField()
-    cellphone = serializers.CharField()
-    course_code = serializers.CharField()
 
 
 class PaymentDataSerializer(serializers.Serializer):
@@ -17,7 +14,10 @@ class PaymentDataSerializer(serializers.Serializer):
     payment_method_id = serializers.CharField()
     installments = serializers.IntegerField()
     payer = PaymentUserSerializer()
-    campaign_id = IntegerField()
+    campaign_id = serializers.CharField()
+    cpf = serializers.CharField()
+    cellphone = serializers.CharField()
+    course_code = serializers.CharField()
 
     @staticmethod
     def create_from_json(json_data: dict) -> PaymentData:
@@ -28,12 +28,13 @@ class PaymentDataSerializer(serializers.Serializer):
             payment_method_id=json_data["payment_method_id"],
             installments=json_data["installments"],
             payer=PaymentUser(
-                cpf=json_data["cpf"],
-                email=json_data["email"],
+                cpf=json_data["payer"]["cpf"],
+                email=json_data["payer"]["email"],
                 cellphone=json_data["cellphone"],
-                course_code=json_data.get("course_code", 1),
+                course_code=json_data.get("course_code", "1"),
+                campaign_id=json_data.get("campaign_id", "1"),
             ),
-            campaign_id=json_data.get("campaign_id", 1),
+            cpf=json_data["cpf"],
         )
 
 

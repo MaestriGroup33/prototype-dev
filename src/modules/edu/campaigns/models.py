@@ -255,135 +255,132 @@ class Faq(models.Model):
     def __str__(self):
         return self.question
 
+    # class GlobalSettings(models.Model):
+    #     year_base = models.IntegerField(
+    #         verbose_name="Ano Base",
+    #         help_text="Ano base para cálculos de mensalidades.",
+    #     )
 
-class GlobalSettings(models.Model):
-    year_base = models.IntegerField(
-        verbose_name="Ano Base",
-        help_text="Ano base para cálculos de mensalidades.",
-    )
+    # class Indicators(GlobalSettings):
+    #     salario_minimo = models.DecimalField(
+    #         max_digits=10,
+    #         decimal_places=2,
+    #         verbose_name="Salário Mínimo",
+    #         default=Decimal(1412.00),
+    #         help_text="Salário mínimo atual.",
+    #     )
+    #     ipca = models.DecimalField(
+    #         max_digits=10,
+    #         decimal_places=2,
+    #         verbose_name="IPCA",
+    #         default=Decimal(0.03),
+    #         help_text="IPCA acumulado no ano.",
+    #     )
+    #     inpc = models.DecimalField(
+    #         max_digits=10,
+    #         decimal_places=2,
+    #         verbose_name="INPC",
+    #         default=Decimal(0.03),
+    #         help_text="INPC acumulado no ano.",
+    #     )
+    #     igpm = models.DecimalField(
+    #         max_digits=10,
+    #         decimal_places=2,
+    #         verbose_name="IGPM",
+    #         default=Decimal(0.03),
+    #         help_text="IGPM acumulado no ano.",
+    #     )
+    #     selic = models.DecimalField(
+    #         max_digits=10,
+    #         decimal_places=2,
+    #         verbose_name="SELIC",
+    #         default=Decimal(0.03),
+    #         help_text="SELIC acumulado no ano.",
+    #     )
+    #     poupanca = models.DecimalField(
+    #         max_digits=10,
+    #         decimal_places=2,
+    #         verbose_name="Poupança",
+    #         default=Decimal(0.03),
+    #         help_text="Rendimento da poupança acumulado no ano.",
+    #     )
+    #     cdi = models.DecimalField(
+    #         max_digits=10,
+    #         decimal_places=2,
+    #         verbose_name="CDI",
+    #         default=Decimal(0.03),
+    #         help_text="CDI acumulado no ano.",
+    #     )
+    #     dolar = models.DecimalField(
+    #         max_digits=10,
+    #         decimal_places=2,
+    #         verbose_name="Dólar",
+    #         default=Decimal(5.00),
+    #         help_text="Cotação do dólar no ano.",
+    #     )
+    #     euro = models.DecimalField(
+    #         max_digits=10,
+    #         decimal_places=2,
+    #         verbose_name="Euro",
+    #         default=Decimal(6.00),
+    #         help_text="Cotação do euro no ano.",
+    #     )
+    #     bitcoin = models.DecimalField(
+    #         max_digits=10,
+    #         decimal_places=2,
+    #         verbose_name="Bitcoin",
+    #         default=Decimal(50000.00),
+    #         help_text="Cotação do bitcoin no ano.",
+    #     )
+    #     bolsa = models.DecimalField(
+    #         max_digits=10,
+    #         decimal_places=2,
+    #         verbose_name="Bolsa de Valores",
+    #         default=Decimal(100000.00),
+    #         help_text="Valor do índice da bolsa de valores no ano.",
+    #     )
 
+    #     class Meta:
+    #         verbose_name = "Configuração Global"
+    #         verbose_name_plural = "Configurações Globais"
 
-class Indicators(GlobalSettings):
-    salario_minimo = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name="Salário Mínimo",
-        default=Decimal(1412.00),
-        help_text="Salário mínimo atual.",
-    )
-    ipca = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name="IPCA",
-        default=Decimal(0.03),
-        help_text="IPCA acumulado no ano.",
-    )
-    inpc = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name="INPC",
-        default=Decimal(0.03),
-        help_text="INPC acumulado no ano.",
-    )
-    igpm = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name="IGPM",
-        default=Decimal(0.03),
-        help_text="IGPM acumulado no ano.",
-    )
-    selic = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name="SELIC",
-        default=Decimal(0.03),
-        help_text="SELIC acumulado no ano.",
-    )
-    poupanca = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name="Poupança",
-        default=Decimal(0.03),
-        help_text="Rendimento da poupança acumulado no ano.",
-    )
-    cdi = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name="CDI",
-        default=Decimal(0.03),
-        help_text="CDI acumulado no ano.",
-    )
-    dolar = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name="Dólar",
-        default=Decimal(5.00),
-        help_text="Cotação do dólar no ano.",
-    )
-    euro = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name="Euro",
-        default=Decimal(6.00),
-        help_text="Cotação do euro no ano.",
-    )
-    bitcoin = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name="Bitcoin",
-        default=Decimal(50000.00),
-        help_text="Cotação do bitcoin no ano.",
-    )
-    bolsa = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        verbose_name="Bolsa de Valores",
-        default=Decimal(100000.00),
-        help_text="Valor do índice da bolsa de valores no ano.",
-    )
+    #     def __str__(self):
+    #         return f"Configurações Globais - {self.year_base}"
 
-    class Meta:
-        verbose_name = "Configuração Global"
-        verbose_name_plural = "Configurações Globais"
+    #     def save(self, *args, **kwargs):
+    #         super().save(*args, **kwargs)
 
-    def __str__(self):
-        return f"Configurações Globais - {self.year_base}"
+    #     # class Classifications(models.Model):
+    #     course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
+    #     base_price = models.DecimalField(max_digits=10, decimal_places=2)
+    #     classification = models.CharField(max_length=1)
+    #     price = models.DecimalField(max_digits=10, decimal_places=2, editable=False)
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
+    #     def save(self, *args, **kwargs):
+    #         from .utilities import calculate_tuition
 
+    #         # Obtém o último valor de salário mínimo inserido
+    #         salario_minimo = Classifications.get_min_salary()
+    #         self.price = calculate_tuition(
+    #             self.classification,
+    #             self.base_price,
+    #             salario_minimo,
+    #         )
 
-class Classifications(models.Model):
-    course_id = models.ForeignKey(Course, on_delete=models.CASCADE)
-    base_price = models.DecimalField(max_digits=10, decimal_places=2)
-    classification = models.CharField(max_length=1)
-    price = models.DecimalField(max_digits=10, decimal_places=2, editable=False)
+    #         super().save(*args, **kwargs)
 
-    def save(self, *args, **kwargs):
-        from .utilities import calculate_tuition
+    #     class Meta:
+    #         verbose_name = "Classificação"
+    #         verbose_name_plural = "Classificações"
 
-        # Obtém o último valor de salário mínimo inserido
-        salario_minimo = Classifications.get_min_salary()
-        self.price = calculate_tuition(
-            self.classification,
-            self.base_price,
-            salario_minimo,
-        )
+    #     def __str__(self):
+    #         return f"{self.course_id} - {self.classification} - {self.price}"
 
-        super().save(*args, **kwargs)
+    # @staticmethod
+    # def get_min_salary():
+    #     min = Indicators.objects.last()
 
-    class Meta:
-        verbose_name = "Classificação"
-        verbose_name_plural = "Classificações"
+    #     if min is None:
+    #         return 1412.00
 
-    def __str__(self):
-        return f"{self.course_id} - {self.classification} - {self.price}"
-
-    @staticmethod
-    def get_min_salary():
-        min = Indicators.objects.last()
-
-        if min is None:
-            return 1412.00
-
-        return min.salario_minimo
+    #     return min.salario_minimo

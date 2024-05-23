@@ -8,6 +8,6 @@ app_name = "tools_mercado_pago"
 
 urlpatterns = [
     path("payment/", payment, name="payment"),
-    path("payment_test/", Payment.as_view()),
+    path("payment-campaign/", Payment.as_view()),
     path("payment_response/", PaymentResponse.as_view()),
 ]
