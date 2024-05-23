@@ -35,7 +35,7 @@ ENV BUILD_ENV ${BUILD_ENVIRONMENT}
 WORKDIR ${APP_HOME}
 
 RUN addgroup --system django \
-    && adduser --system --ingroup django django
+  && adduser --system --ingroup django django
 
 
 # Install required system dependencies
@@ -44,6 +44,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
   libpq-dev \
   # Translations dependencies
   gettext \
+  nodejs \
+  npm \ 
   # cleaning up unused files
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
@@ -79,12 +81,25 @@ COPY --chown=django:django ./compose/production/django/celery/flower/start /star
 RUN sed -i 's/\r$//g' /start-flower
 RUN chmod +x /start-flower
 
-
 # copy application code to WORKDIR
 COPY --chown=django:django . ${APP_HOME}
 
+RUN npm install 
+
+RUN npm install htmx 
+
+RUN npm install tailwindcss
+
+RUN npm install flowbite
+
+# RUN ln -s ../../../node_modules/htmx src/static/vendor/htmx
+
 # make django owner of the WORKDIR directory as well.
 RUN chown -R django:django ${APP_HOME}
+
+# 
+
+# RUN npx tailwindcss -i ./src/static/css/input.css -o ./src/static/css/output.css --watch
 
 USER django
 

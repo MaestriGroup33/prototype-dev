@@ -14,7 +14,20 @@ SECRET_KEY = env(
     default="qAa8kowty8vjvQPx9TN5q9brs3KEfp9BdMVKh1ZC6uRXiodNUWhr9UCDn2s5GPSA",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]  # noqa: S104
+ALLOWED_HOSTS = [
+    "localhost",
+    "0.0.0.0",
+    "127.0.0.1",
+    "*.maestri.group",
+    "maestri.group",
+    "*.maestri.app.br",
+    "maestri.app.br",
+    "213.199.33.138",
+    "server.maestri.net.br",
+    "ns1.maestri.net.br",
+    "www.mercadopago.com.br",
+    "www.maestri.group",
+]  # noqa: S104
 
 # CACHES
 # ------------------------------------------------------------------------------

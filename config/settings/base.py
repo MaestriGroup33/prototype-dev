@@ -66,7 +66,7 @@ DJANGO_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # "django.contrib.humanize", # Handy template tags
+    "django.contrib.humanize",  # Handy template tags
     "django.contrib.admin",
     "django.forms",
 ]
@@ -240,6 +240,10 @@ CSRF_COOKIE_HTTPONLY = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
 X_FRAME_OPTIONS = "DENY"
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://maestri.app.br",
+]
+
 # EMAIL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
@@ -354,7 +358,27 @@ REST_FRAMEWORK = {
 }
 
 # django-cors-headers - https://github.com/adamchainz/django-cors-headers#setup
-CORS_URLS_REGEX = r"^/api/.*$"
+# CORS_URLS_REGEX = r"^/api/.*$"
+
+CORS_ALLOWED_ORIGINS = [
+    "http://maestri.group",
+    "http://localhost:4321",
+    "http://localhost:4322",
+    "http://localhost:4323",
+    "http://localhost:4324",
+    "http://localhost:4325",
+    "http://localhost:4326",
+    "http://localhost:4327",
+    "http://maestri.app.br",
+    "http://matricular.online",
+    "http://server.maestri.net.br",
+    "http://maestri.app.br",
+    "https://maestri.app.br",
+    "https://www.mercadopago.com.br",
+    "https://api.mercadopago.com",
+    "https://edu.maestri.app.br",
+    "https://edu.maestri.group",
+]
 
 # By Default swagger ui is available only to admin user(s). You can change permission classes to change that
 # See more configuration options at https://drf-spectacular.readthedocs.io/en/latest/settings.html#settings
