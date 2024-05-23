@@ -3,7 +3,7 @@
 
 {% if attrs.type == "textarea" %}
   <div class="mb-3">
-    <label for="{{ attrs.id }}" class="block text-sm font-medium text-gray-700">{% slot label %}</label>
+    <label for="{{ attrs.id }}" class="block text-sm font-medium text-gray-700">{% slot label %} {% endslot %}</label>
     <textarea {% if attrs.required %}required{% endif %}
               {% if attrs.rows %}rows="{{ attrs.rows }}"{% endif %}
               {% if attrs.disabled %}disabled{% endif %}
@@ -29,12 +29,12 @@
              type="{{ attrs.type }}"
              class="form-radio h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" />
       <label class="ml-2 block text-sm leading-5 text-gray-900"
-             for="{{ attrs.id }}">{% slot label %}</label>
+             for="{{ attrs.id }}">{% slot label %} {% endslot %}</label>
     </div>
   </div>
 {% else %}
   <div class="mb-3">
-    <label for="{{ attrs.id }}" class="block text-sm font-medium text-gray-700">{% slot label %}</label>
+    <label for="{{ attrs.id }}" class="block text-sm font-medium text-gray-700">{% slot label %} {% endslot %}</label>
     <input {% if attrs.required %}required{% endif %}
            {% if attrs.disabled %}disabled{% endif %}
            {% if attrs.readonly %}readonly{% endif %}
