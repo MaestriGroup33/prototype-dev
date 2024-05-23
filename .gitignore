@@ -11,3 +11,5 @@ venv
 .git
 .envs/
 node_modules/
+.vscode/
+src/media/
