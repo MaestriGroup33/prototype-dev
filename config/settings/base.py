@@ -108,6 +108,7 @@ LOCAL_APPS = [
     "src.modules.tools.unsplash",  # Configuração da integração com a API do Unsplash (captador de imagens)
     "src.modules.tools.whatsapp",  # Configuração da integração com o WhatsApp para env
     "src.modules.tools.aipag",
+    "src.modules.tools.notifications",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
