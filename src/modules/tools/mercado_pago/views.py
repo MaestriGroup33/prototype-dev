@@ -17,6 +17,7 @@ from . import secrets
 from .secrets import secret_key
 from .serializers import PaymentDataSerializer, PaymentUpdateSerializer
 from .models import PaymentData
+from src.modules.tools.notifications.mail_service import send_email
 from src.modules.core.profiles.models import Profile
 from src.modules.edu.enrollment.models import ClientStatus, Enrollments, Clients
 from src.users.models import User, UserGroups
@@ -49,24 +50,37 @@ class Payment(APIView):
         if isinstance(payment_data, ListSerializer):
             return Response("d")
 
-        print(payment_data)
-
         sdk = mercadopago.SDK(secrets.access_token)
         request_options = mercadopago.config.RequestOptions()
         request_options.custom_headers = {"x-idempotency-key": str(uuid.uuid4())}
 
         result = sdk.payment().create(payment_data, request_options)
 
-        print(result["response"])
+        print("\n result[reponse]", result["response"])
 
-        if result["response"]["status"] == 400:
-            return Response(result["response"]["message"], 400)
+        if result["response"]["status"] >= 400:
+            print("400 error")
+            return Response(
+                data={
+                    "message": result["response"]["message"],
+                },
+                status=400,
+            )
+
+        if result["response"]["status"] == "rejected":
+            return Response(
+                data={
+                    "message": "O pagamento foi rejeitado",
+                    "id": result["response"]["id"],
+                },
+                status=400,
+            )
 
         payment_response: PaymentResponseData = PaymentResponseData.create_from_json(
             result["response"]
         )
 
-        print("\n payment: ", payment_response, "\n")
+        print("\n payment-response: ", payment_response, "\n")
 
         payment: PaymentData = PaymentDataSerializer.create_from_json(request.data)
 
@@ -96,9 +110,10 @@ class Payment(APIView):
             enrollment_id=enrollment,
             value=Decimal(payment.transaction_amount),
             status=ChargeStatus.AWAITING_PAYMENT,
+            origin_id=str(payment_response.id),
         )
 
-        return Response(request.data)
+        return Response({"id": payment_response.id})
 
 
 @extend_schema(request=None, responses=None)
@@ -157,6 +172,7 @@ class PaymentResponse(APIView):
         serializer = PaymentUpdateSerializer(data=request.data)
 
         if isinstance(serializer, ListSerializer):
+            print("isList")
             return Response(status=400)
 
         payment: PaymentUpdate = serializer.create_from_json(
@@ -174,8 +190,23 @@ class PaymentResponse(APIView):
             client.status = ClientStatus.PRE_ENROLLED
             client.save()
 
-        if payment.action == "payment.create":
-            print("create")
+            user: User = User.objects.get(name=client.profile_id.cpf)
+
+            send_email(
+                "Parabéns da Maestri.edu",
+                """
+                Parabéns por sua grande decisão e por iniciar sua nova grande jornada com a Maestri.edu. 
+                Seu pagamento foi aprovado e logo entraremos em contanto com os próximos passos.
+                Caso tenha alguma dúvida, por favor entre em contanto por nosso telefone 0800-333-3099.
+
+                Sinceras congratulações da Maestri.edu
+                """,
+                user.email,
+            )
+
+        if payment.action == "payment.create" or payment.action == "payment.created":
+            print(payment)
+            print("created")
 
         return Response(status=200)
 

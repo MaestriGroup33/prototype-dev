@@ -97,7 +97,7 @@ class Profile(models.Model):
         unique_together = [["cpf", "birth_date"]]  # Exemplo de uso de unique_together
 
     def __str__(self):
-        return "name"
+        return self.name
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

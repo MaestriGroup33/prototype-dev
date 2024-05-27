@@ -56,6 +56,8 @@ class Charge(models.Model):
         enrollment_id: Enrollments,
         value: Decimal,
         status: ChargeStatus,
+        origin_id: str,
+        origin_number: str = "",
         days_until_due: int = 30,
     ):
         due_date = date.today() + timedelta(days_until_due)
@@ -65,4 +67,9 @@ class Charge(models.Model):
             due_date=due_date,
             created_date=datetime.now().date(),
             status=status,
+            origin_id=origin_id,
+            origin_number=origin_number,
         )
+
+    def __str__(self):
+        return str(self.enrollment_id)

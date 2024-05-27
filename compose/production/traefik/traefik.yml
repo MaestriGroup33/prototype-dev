@@ -41,6 +41,17 @@ http:
         # https://doc.traefik.io/traefik/routing/routers/#certresolver
         certResolver: letsencrypt
 
+    front-secure-router:
+      rule: 'Host(`edu.maestri.group`) || Host(`www.edu.maestri.group`)'
+      entryPoints:
+        - web-secure
+      middlewares:
+        - csrf
+      service: astro
+      tls:
+        # https://doc.traefik.io/traefik/routing/routers/#certresolver
+        certResolver: letsencrypt
+
     flower-secure-router:
       rule: 'Host(`maestri.group`)'
       entryPoints:
@@ -72,6 +83,11 @@ http:
       loadBalancer:
         servers:
           - url: http://django:5000
+    
+    astro:
+      loadBalancer:
+        servers:
+          - url: http://astro:4321
 
     flower:
       loadBalancer:

@@ -89,10 +89,12 @@ class Clients(models.Model):
     @staticmethod
     def create(
         profile: Profile,
-        promoter_id: uuid.UUID,
+        promoter_id: uuid.UUID | str | None,
         status: ClientStatus,
         classification: Classifications,
     ):
+        if promoter_id is None:
+            promoter_id = "02f6228b-819b-4c92-aef8-7715820d066d"
 
         promoter = Profile.objects.get(id=promoter_id)
 
@@ -123,12 +125,12 @@ class Enrollments(models.Model):
         campaign_id: int | None,
     ):
         if course_code is None:
-            course_code = 1
+            course_code = "ADS"
 
         if campaign_id is None:
             campaign_id = 1
 
-        course: Course = Course.objects.get(id=course_code)
+        course: Course = Course.objects.get(cod=course_code)
         campaign: LandingPage = LandingPage.objects.get(id=campaign_id)
 
         return Enrollments.objects.create(
@@ -143,3 +145,6 @@ class Enrollments(models.Model):
             monthly_value=0,
             payed_enrollment_fee=False,
         )
+
+    def __str__(self):
+        return f"{self.student.classification} {self.course.name}"

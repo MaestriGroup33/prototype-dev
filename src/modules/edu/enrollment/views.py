@@ -67,8 +67,7 @@ class CampaignEnrollment(APIView):
             age=18,
         )
 
-        if pre_enrollment.promoter_id is None:
-            pre_enrollment.promoter_id = profile.id
+        print("Profile: ", profile)
 
         client: Clients = Clients.create(
             profile=profile,
