@@ -40,10 +40,17 @@ class User(AbstractUser):
         max_length=2,
         default="ST",
     )
-    covenant_id = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
-    username = None
+    profile = models.ForeignKey(
+        Profile, verbose_name=_("Profile"), on_delete=models.CASCADE, null=True
+    )
+    covenant_id = models.ForeignKey(
+        Profile,
+        null=True,
+        related_name="created_by_%(class)s_related",
+        on_delete=models.SET_NULL,
+    )
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = [""]
 
     objects: ClassVar[UserManager] = UserManager()
 
@@ -64,6 +71,7 @@ class User(AbstractUser):
         group: UserGroups | None,
         covenant_id: Profile | None,
     ) -> "User":
+        """Creates and Saves a user to the database. Returns the created user"""
         if group is None:
             group = UserGroups.Promoter
 

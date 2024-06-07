@@ -1,62 +1,59 @@
-{% extends "pages/base.html" %}
-
-
+{% extends 'pages/base.html' %}
 
 {% block javascript %}
 
-{% endblock javascript %}
+{% endblock %}
 
 {% block content %}
-<div class="h-[100vh] w-[100%] flex items-center justify-center">
+  <div class="h-[100vh] w-[100%] flex items-center justify-center">
     <div class="flex justify-center w-[100%] items-center mb-20 mt-10">
-        <div class="w-full max-w-sm p-4 bg-black border border-neutral-600 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-            <form id="registrationForm" class="space-y-6" action="#" method="post">
-                <div class="flex justify-center items-center">
-                    <h5 class="text-xl font-medium text-center text-white dark:text-white">Crie sua conta</h5>
-                </div>
-                <div class="relative">
-                    <input type="text" id="name" name="name" class="block text-white  px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-neutral-600 appearance-none dark:text-white dark:border-neutral-600 dark:focus:border-yellow-300 focus:outline-none focus:ring-0 focus:border-yellow-300 peer" placeholder=" " />
-                    <label for="name" class="absolute text-sm text-neutral-600 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] left-3 bg-black dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-yellow-300 peer-focus:dark:text-yellow-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4">Nome completo</label>
-                </div>
-                <div class="relative">
-                    <input type="text" id="cpf" name="cpf" class="block text-white px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-neutral-600 appearance-none dark:text-white dark:border-neutral-600 dark:focus:border-yellow-300 focus:outline-none focus:ring-0 focus:border-yellow-300 peer" placeholder=" " />
-                    <label for="cpf" class="absolute text-sm text-neutral-600 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] left-3 bg-black dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-yellow-300 peer-focus:dark:text-yellow-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4">CPF</label>
-                </div>
-                <div class="relative">
-                    <input type="text" id="phone" name="phone" class="block text-white px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-neutral-600 appearance-none dark:text-white dark:border-neutral-600 dark:focus:border-yellow-300 focus:outline-none focus:ring-0 focus:border-yellow-300 peer" placeholder=" " />
-                    <label for="phone" class="absolute text-sm text-neutral-600 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] left-3 bg-black dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-yellow-300 peer-focus:dark:text-yellow-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4">Número de celular</label>
-                </div>
-                <div class="relative">
-                    <input type="password" id="password" name="password" class="block text-white px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-neutral-600 appearance-none dark:text-white dark:border-neutral-600 dark:focus:border-yellow-300 focus:outline-none focus:ring-0 focus:border-yellow-300 peer" placeholder=" " />
-                    <label for="password" class="absolute text-sm text-neutral-600 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] left-3 bg-black dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-yellow-300 peer-focus:dark:text-yellow-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4">Senha</label>
-                </div>
-                <div class="relative">
-                    <input type="password" id="confirm_password" name="confirm_password" class="block text-white px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-neutral-600 appearance-none dark:text-white dark:border-neutral-600 dark:focus:border-yellow-300 focus:outline-none focus:ring-0 focus:border-yellow-300 peer" placeholder=" " />
-                    <label for="confirm_password" class="absolute text-sm text-neutral-600 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] left-3 bg-black dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-yellow-300 peer-focus:dark:text-yellow-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4">Confirmar senha</label>
-                </div>
-                
-                <button type="submit" class="w-full text-black border-2 border-yellow-300 hover:bg-transparent hover:text-yellow-300 ease-linear duration-150 hover:border-yellow-300 bg-yellow-300 hover:bg-yellow-450 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registre-se</button>
-                
-            </form>
-        </div>
+      <div class="w-full max-w-sm p-4 bg-black border border-neutral-600 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <form id="registrationForm" class="space-y-6" action="#" method="post">
+          <div class="flex justify-center items-center">
+            <h5 class="text-xl font-medium text-center text-white dark:text-white">Crie sua conta</h5>
+          </div>
+          <div class="relative">
+            <input type="text" id="name" name="name" class="block text-white px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-neutral-600 appearance-none dark:text-white dark:border-neutral-600 dark:focus:border-yellow-300 focus:outline-none focus:ring-0 focus:border-yellow-300 peer" placeholder=" " />
+            <label for="name" class="absolute text-sm text-neutral-600 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] left-3 bg-black dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-yellow-300 peer-focus:dark:text-yellow-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4">Nome completo</label>
+          </div>
+          <div class="relative">
+            <input type="text" id="cpf" name="cpf" class="block text-white px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-neutral-600 appearance-none dark:text-white dark:border-neutral-600 dark:focus:border-yellow-300 focus:outline-none focus:ring-0 focus:border-yellow-300 peer" placeholder=" " />
+            <label for="cpf" class="absolute text-sm text-neutral-600 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] left-3 bg-black dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-yellow-300 peer-focus:dark:text-yellow-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4">CPF</label>
+          </div>
+          <div class="relative">
+            <input type="text" id="phone" name="phone" class="block text-white px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-neutral-600 appearance-none dark:text-white dark:border-neutral-600 dark:focus:border-yellow-300 focus:outline-none focus:ring-0 focus:border-yellow-300 peer" placeholder=" " />
+            <label for="phone" class="absolute text-sm text-neutral-600 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] left-3 bg-black dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-yellow-300 peer-focus:dark:text-yellow-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4">Número de celular</label>
+          </div>
+          <div class="relative">
+            <input type="password" id="password" name="password" class="block text-white px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-neutral-600 appearance-none dark:text-white dark:border-neutral-600 dark:focus:border-yellow-300 focus:outline-none focus:ring-0 focus:border-yellow-300 peer" placeholder=" " />
+            <label for="password" class="absolute text-sm text-neutral-600 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] left-3 bg-black dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-yellow-300 peer-focus:dark:text-yellow-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4">Senha</label>
+          </div>
+          <div class="relative">
+            <input type="password" id="confirm_password" name="confirm_password" class="block text-white px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-neutral-600 appearance-none dark:text-white dark:border-neutral-600 dark:focus:border-yellow-300 focus:outline-none focus:ring-0 focus:border-yellow-300 peer" placeholder=" " />
+            <label for="confirm_password" class="absolute text-sm text-neutral-600 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] left-3 bg-black dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-yellow-300 peer-focus:dark:text-yellow-300 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4">Confirmar senha</label>
+          </div>
+
+          <button type="submit" class="w-full text-black border-2 border-yellow-300 hover:bg-transparent hover:text-yellow-300 ease-linear duration-150 hover:border-yellow-300 bg-yellow-300 hover:bg-yellow-450 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Registre-se</button>
+        </form>
+      </div>
     </div>
-</div>
+  </div>
 
-<script>
-document.getElementById('registrationForm').addEventListener('submit', function(event) {
-    const name = document.getElementById('name').value;
-    const cpf = document.getElementById('cpf').value;
-    const phone = document.getElementById('phone').value;
-    const password = document.getElementById('password').value;
-    const confirm_password = document.getElementById('confirm_password').value;
-
-    if (!name || !cpf || !phone || !password || !confirm_password) {
-        event.preventDefault(); // Impede o envio do formulário
-        alert('Por favor, preencha todos os campos.');
-    } else if (password !== confirm_password) {
-        event.preventDefault(); // Impede o envio do formulário
-        alert('As senhas não coincidem.');
-    }
-});
-</script>
-{% endblock content %}
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', function (event) {
+      const name = document.getElementById('name').value
+      const cpf = document.getElementById('cpf').value
+      const phone = document.getElementById('phone').value
+      const password = document.getElementById('password').value
+      const confirm_password = document.getElementById('confirm_password').value
+    
+      if (!name || !cpf || !phone || !password || !confirm_password) {
+        event.preventDefault() // Impede o envio do formulário
+        alert('Por favor, preencha todos os campos.')
+      } else if (password !== confirm_password) {
+        event.preventDefault() // Impede o envio do formulário
+        alert('As senhas não coincidem.')
+      }
+    })
+  </script>
+{% endblock %}

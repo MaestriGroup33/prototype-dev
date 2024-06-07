@@ -46,6 +46,7 @@ urlpatterns = [
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("src.users.urls", namespace="users")),
+    path("auth/", include("src.users.authentication.urls", namespace="auth")),
     path("accounts/", include("allauth.urls")),
     path("", include("src.modules.urls")),
     # Your stuff: custom urls includes go here

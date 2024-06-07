@@ -27,6 +27,7 @@ ALLOWED_HOSTS = [
     "ns1.maestri.net.br",
     "www.mercadopago.com.br",
     "www.maestri.group",
+    "maestri.tech"
 ]  # noqa: S104
 
 # CACHES

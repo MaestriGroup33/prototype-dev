@@ -90,6 +90,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "src.users",
+    "src.users.authentication",
     "src.modules.core.profiles",  # Perfis - app onde ficam armazenadas as informações sobre os perfis dos usuários, alunos, e todos "perfis", tem como principal identificador o CPF, cuindando assim que cada individeuo sejá único dentro de nossa plataforma.
     "src.modules.core.finances",  # Finanças - app responsável por gerenciar as informações financeiras da Maestri.group, como comissões, transações, contas a pagar, um panorama financeiro e etc...
     # ----------------------- ADD aqui outros apps da Maestri.group -----------------------#
@@ -124,14 +125,15 @@ MIGRATION_MODULES = {"sites": "src.contrib.sites.migrations"}
 # https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
+    "src.users.authentication.services.UserAuthCPF",
+    #   "allauth.account.auth_backends.AuthenticationBackend",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "users:redirect"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_URL = "account_login"
+LOGIN_URL = "/accounts/login/"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -243,6 +245,7 @@ X_FRAME_OPTIONS = "DENY"
 
 CSRF_TRUSTED_ORIGINS = [
     "https://maestri.app.br",
+    "https://maestri.tech",
 ]
 
 # EMAIL
@@ -328,6 +331,8 @@ CELERY_TASK_SEND_SENT_EVENT = True
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 # https://docs.allauth.org/en/latest/account/configuration.html
+ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
+#
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 # https://docs.allauth.org/en/latest/account/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True

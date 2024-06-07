@@ -93,10 +93,7 @@ class Clients(models.Model):
         status: ClientStatus,
         classification: Classifications,
     ):
-        if promoter_id is None:
-            promoter_id = "02f6228b-819b-4c92-aef8-7715820d066d"
-
-        promoter = Profile.objects.get(id=promoter_id)
+        promoter = Profile.get_by_promotinal_code(promotional_code=str(promoter_id))
 
         return Clients.objects.create(
             profile_id=profile,

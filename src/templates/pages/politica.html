@@ -1,84 +1,82 @@
-{% extends "pages/base.html" %}
+{% extends 'pages/base.html' %}
 
 {% block content %}
-<main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-black text-white dark:bg-gray-900 antialiased">
+  <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-black text-white dark:bg-gray-900 antialiased">
     <div class="flex justify-between px-4 mx-auto max-w-screen-xl">
-        <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
-            <header class="mb-4 lg:mb-6 not-format">
-                <h1 class="mb-4  text-3xl font-extrabold text-center leading-tight text-white-90 lg:mb-6 lg:text-4xl dark:text-white">
-                    Política de Privacidade e Uso de Cookies - Maestri.group
-                </h1>
-            </header>
-            <p class="lead">
-                <strong class="text-yellow-400">1. Definições</strong><br>
-                <strong class="text-yellow-400">Lei Geral de Proteção de Dados (“LGPD”):</strong> A Lei nº 13.709, de 14 de agosto de 2018, regula o tratamento de dados pessoais no Brasil, tanto em meio digital quanto físico, realizado por indivíduos ou entidades, públicas ou privadas. O principal objetivo desta lei é proteger a privacidade dos titulares dos dados, ao mesmo tempo que promove o desenvolvimento econômico e tecnológico.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">Dados Pessoais:</strong> Qualquer informação relacionada a uma pessoa física identificada ou identificável. Exemplos incluem, mas não se limitam a, nome, CPF e RG.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">Dados Pessoais Sensíveis:</strong> Informações que dizem respeito à origem racial ou étnica, convicções religiosas, opiniões políticas, filiação a sindicatos ou organizações de caráter religioso, filosófico ou político, além de dados relacionados à saúde, vida sexual, dados genéticos ou biométricos vinculados a uma pessoa natural.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">Titular:</strong> A pessoa a quem se referem os dados pessoais que estão sendo tratados.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">Tratamento:</strong> Engloba operações realizadas com dados pessoais, como coleta, produção, recepção, classificação, utilização, acesso, reprodução, transmissão, distribuição, processamento, armazenamento e eliminação.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">Usuário:</strong> Qualquer pessoa física que interage com o website ou as mídias sociais da Maestri.group.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">Cookies:</strong> Arquivos de informação salvos em computadores ou dispositivos móveis pelo navegador. Esses arquivos facilitam a recordação das preferências do usuário, como idioma e configurações de visualização, tornando as visitas subsequentes mais ágeis e personalizadas.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">Cookies Persistentes:</strong> Arquivos que permanecem no dispositivo do usuário até serem manualmente deletados.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">Cookies de Sessão:</strong> Arquivos que são excluídos automaticamente quando o navegador é fechado.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">2. Objetivo</strong><br>
-                Esta política detalha as práticas de tratamento de dados pessoais dos usuários durante a navegação nos sites e mídias sociais da Maestri.group, conforme as diretrizes da LGPD e outras normativas aplicáveis de proteção de dados.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">3. Aplicabilidade</strong><br>
-                Esta política informa os usuários, tanto visitantes quanto usuários de áreas restritas, sobre o tratamento de seus dados pessoais ao interagir com nossos portais digitais.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">4. Coleta de Dados Pessoais</strong><br>
-                <strong class="text-yellow-400">4.1 Visitantes:</strong> Dados como região de acesso, navegador, dispositivo, idade e sexo podem ser coletados de usuários que navegam em nossos sites.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">4.2 Visitantes Interessados em Serviços:</strong> Dados como nome, telefone, e-mail, cidade e estado podem ser coletados através de formulários para interessados em nossos serviços. Esses dados são utilizados para contatos personalizados.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">4.3 Inscrição em Newsletter:</strong> O e-mail é coletado para envio de informações e novidades, com garantia de privacidade e opção de cancelamento a qualquer momento.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">4.4 Áreas de Uso Restrito:</strong> Dados adicionais podem ser coletados ao acessar áreas restritas, com autenticação necessária para garantir a segurança e privacidade dos usuários.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">5. Compartilhamento de Dados</strong><br>
-                A Maestri.group não comercializa dados pessoais. Estes são compartilhados estritamente sob condições contratuais ou legais, com parceiros que respeitam nossa política de privacidade.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">6. Armazenamento dos Dados</strong><br>
-                Os dados são armazenados em servidores seguros pelo tempo necessário para atender às finalidades para as quais foram coletados, respeitando obrigações legais e contratuais.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">7. Cookies e Tecnologias Similares</strong><br>
-                Utilizamos cookies para melhorar a experiência de navegação, adaptando conteúdos e coletando estatísticas anônimas para otimização do site.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">8. Direitos dos Usuários</strong><br>
-                Conforme a LGPD, os usuários têm o direito de solicitar acesso, correção, exclusão ou limitação do uso de seus dados pessoais, além de oposição ao tratamento e portabilidade dos dados.
-            </p>
-            <p class="lead">
-                <strong class="text-yellow-400">9. Alterações da Política</strong><br>
-                A política de privacidade e uso de cookies pode ser atualizada periodicamente para refletir mudanças nas práticas de gestão de dados. Os usuários serão informados de qualquer alteração significativa.
-            </p>
-        </article>
+      <article class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
+        <header class="mb-4 lg:mb-6 not-format">
+          <h1 class="mb-4 text-3xl font-extrabold text-center leading-tight text-white-90 lg:mb-6 lg:text-4xl dark:text-white">Política de Privacidade e Uso de Cookies - Maestri.group</h1>
+        </header>
+        <p class="lead">
+          <strong class="text-yellow-400">1. Definições</strong><br />
+          <strong class="text-yellow-400">Lei Geral de Proteção de Dados (“LGPD”):</strong> A Lei nº 13.709, de 14 de agosto de 2018, regula o tratamento de dados pessoais no Brasil, tanto em meio digital quanto físico, realizado por indivíduos ou entidades, públicas ou privadas. O principal objetivo desta lei é proteger a privacidade dos titulares dos dados, ao mesmo tempo que promove o desenvolvimento econômico e tecnológico.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">Dados Pessoais:</strong> Qualquer informação relacionada a uma pessoa física identificada ou identificável. Exemplos incluem, mas não se limitam a, nome, CPF e RG.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">Dados Pessoais Sensíveis:</strong> Informações que dizem respeito à origem racial ou étnica, convicções religiosas, opiniões políticas, filiação a sindicatos ou organizações de caráter religioso, filosófico ou político, além de dados relacionados à saúde, vida sexual, dados genéticos ou biométricos vinculados a uma pessoa natural.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">Titular:</strong> A pessoa a quem se referem os dados pessoais que estão sendo tratados.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">Tratamento:</strong> Engloba operações realizadas com dados pessoais, como coleta, produção, recepção, classificação, utilização, acesso, reprodução, transmissão, distribuição, processamento, armazenamento e eliminação.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">Usuário:</strong> Qualquer pessoa física que interage com o website ou as mídias sociais da Maestri.group.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">Cookies:</strong> Arquivos de informação salvos em computadores ou dispositivos móveis pelo navegador. Esses arquivos facilitam a recordação das preferências do usuário, como idioma e configurações de visualização, tornando as visitas subsequentes mais ágeis e personalizadas.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">Cookies Persistentes:</strong> Arquivos que permanecem no dispositivo do usuário até serem manualmente deletados.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">Cookies de Sessão:</strong> Arquivos que são excluídos automaticamente quando o navegador é fechado.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">2. Objetivo</strong><br />
+          Esta política detalha as práticas de tratamento de dados pessoais dos usuários durante a navegação nos sites e mídias sociais da Maestri.group, conforme as diretrizes da LGPD e outras normativas aplicáveis de proteção de dados.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">3. Aplicabilidade</strong><br />
+          Esta política informa os usuários, tanto visitantes quanto usuários de áreas restritas, sobre o tratamento de seus dados pessoais ao interagir com nossos portais digitais.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">4. Coleta de Dados Pessoais</strong><br />
+          <strong class="text-yellow-400">4.1 Visitantes:</strong> Dados como região de acesso, navegador, dispositivo, idade e sexo podem ser coletados de usuários que navegam em nossos sites.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">4.2 Visitantes Interessados em Serviços:</strong> Dados como nome, telefone, e-mail, cidade e estado podem ser coletados através de formulários para interessados em nossos serviços. Esses dados são utilizados para contatos personalizados.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">4.3 Inscrição em Newsletter:</strong> O e-mail é coletado para envio de informações e novidades, com garantia de privacidade e opção de cancelamento a qualquer momento.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">4.4 Áreas de Uso Restrito:</strong> Dados adicionais podem ser coletados ao acessar áreas restritas, com autenticação necessária para garantir a segurança e privacidade dos usuários.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">5. Compartilhamento de Dados</strong><br />
+          A Maestri.group não comercializa dados pessoais. Estes são compartilhados estritamente sob condições contratuais ou legais, com parceiros que respeitam nossa política de privacidade.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">6. Armazenamento dos Dados</strong><br />
+          Os dados são armazenados em servidores seguros pelo tempo necessário para atender às finalidades para as quais foram coletados, respeitando obrigações legais e contratuais.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">7. Cookies e Tecnologias Similares</strong><br />
+          Utilizamos cookies para melhorar a experiência de navegação, adaptando conteúdos e coletando estatísticas anônimas para otimização do site.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">8. Direitos dos Usuários</strong><br />
+          Conforme a LGPD, os usuários têm o direito de solicitar acesso, correção, exclusão ou limitação do uso de seus dados pessoais, além de oposição ao tratamento e portabilidade dos dados.
+        </p>
+        <p class="lead">
+          <strong class="text-yellow-400">9. Alterações da Política</strong><br />
+          A política de privacidade e uso de cookies pode ser atualizada periodicamente para refletir mudanças nas práticas de gestão de dados. Os usuários serão informados de qualquer alteração significativa.
+        </p>
+      </article>
     </div>
-</main>
-{% endblock content %}
+  </main>
+{% endblock %}

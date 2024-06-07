@@ -91,6 +91,7 @@ class Profile(models.Model):
         editable=False,
     )
     age = models.PositiveIntegerField(verbose_name=("Idade"))
+    promotional_code = models.CharField("Código Promocional", max_length=16)
 
     class Meta:
         verbose_name_plural = "Perfis"
@@ -135,6 +136,20 @@ class Profile(models.Model):
             profile_bool=False,
             age=age,
         )
+
+    @staticmethod
+    def get_by_promotinal_code(promotional_code: str | None):
+        """
+        Returns a Profile by the promotional_code. If it doesn't exist, returns a default Profile
+            Args:
+                promotional_code: string
+            Returns:
+                Profile where promotional_code or default
+        """
+        try:
+            return Profile.objects.get(promotional_code=promotional_code)
+        except Profile.DoesNotExist:
+            return Profile.objects.get(promotional_code="maestri33")
 
 
 class Location(models.Model):
