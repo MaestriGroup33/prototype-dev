@@ -4,6 +4,7 @@ import hmac
 import uuid
 import mercadopago
 import mercadopago.config
+import requests
 from django.shortcuts import render
 from src.modules.edu.charges.models import Charge, ChargeStatus
 from src.modules.tools.mercado_pago.models import PaymentUpdate
@@ -16,7 +17,7 @@ from src.modules.tools.mercado_pago.response import PaymentResponseData
 from . import secrets
 from .secrets import secret_key
 from .serializers import PaymentDataSerializer, PaymentUpdateSerializer
-from .models import PaymentData
+from .models import MercadoPagoDetails, PaymentData
 from src.modules.tools.notifications.mail_service import send_email
 from src.modules.core.profiles.models import Profile
 from src.modules.edu.enrollment.models import ClientStatus, Enrollments, Clients
@@ -38,6 +39,8 @@ class Payment(APIView):
 
         payment: PaymentData = PaymentDataSerializer.create_from_json(request.data)
 
+        reference = uuid.uuid4()
+
         payment_data = {
             "transaction_amount": payment.transaction_amount,
             "token": payment.token,
@@ -45,12 +48,24 @@ class Payment(APIView):
             "payment_method_id": payment.payment_method_id,
             "installments": payment.installments,
             "payer": {"email": payment.payer.email},
+            "notification_url": "https://maestri.group/tools/mp/payment_response/",
+            "external_reference": str(reference),
+            "statement_descriptor": "Pagamento Matricula Maestri.edu",
         }
 
         if isinstance(payment_data, ListSerializer):
             return Response("d")
 
-        sdk = mercadopago.SDK(secrets.access_token)
+        access_token = secrets.access_token
+
+        promoter = Profile.get_by_promotinal_code(
+            promotional_code=payment.promoter_code
+        )
+        mp_details = MercadoPagoDetails.objects.get(promoter=promoter)
+        access_token = mp_details.access_token
+        payment_data["application_fee"] = 10
+
+        sdk = mercadopago.SDK(access_token)
         request_options = mercadopago.config.RequestOptions()
         request_options.custom_headers = {"x-idempotency-key": str(uuid.uuid4())}
 
@@ -58,14 +73,15 @@ class Payment(APIView):
 
         print("\n result[reponse]", result["response"])
 
-        if result["response"]["status"] >= 400:
-            print("400 error")
-            return Response(
-                data={
-                    "message": result["response"]["message"],
-                },
-                status=400,
-            )
+        if isinstance(result["response"]["status"], int):
+            if result["response"]["status"] >= 400:
+                print("400 error")
+                return Response(
+                    data={
+                        "message": result["response"]["message"],
+                    },
+                    status=400,
+                )
 
         if result["response"]["status"] == "rejected":
             return Response(
@@ -111,6 +127,7 @@ class Payment(APIView):
             value=Decimal(payment.transaction_amount),
             status=ChargeStatus.AWAITING_PAYMENT,
             origin_id=str(payment_response.id),
+            origin_number=str(reference),
         )
 
         return Response({"id": payment_response.id})
@@ -169,6 +186,10 @@ class PaymentResponse(APIView):
             print("HMAC verification failed")
             return Response(status=400)
 
+        if request.data:
+            print(request.data)
+            return Response(status=200)
+
         serializer = PaymentUpdateSerializer(data=request.data)
 
         if isinstance(serializer, ListSerializer):
@@ -209,6 +230,57 @@ class PaymentResponse(APIView):
             print("created")
 
         return Response(status=200)
+
+
+@extend_schema(request=None, responses=None)
+class PaymentAuth(APIView):
+    permission_classes = []  # disables permission
+
+    def get(self, request, id: str):
+
+        user: User = request.user
+
+        user.profile
+
+        return None
+
+        code: str = request.GET.get("code")
+
+        response = requests.post(
+            url="https://api.mercadopago.com/oauth/token",
+            headers={
+                "accept": "application/json",
+                "content-type": "application/x-www-form-urlencoded",
+            },
+            data={
+                "client_id": f"{secrets.app_id}",
+                "client_secret": f"{secrets.client_secret}",
+                "grant_type": "authorization_code",
+                "code": f"{code}",
+                "redirect_uri": "https://maestri.tech/tools/mp/auth/maestri33/",
+                "state": str(uuid.uuid4()),
+            },
+        )
+
+        try:
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as errh:
+            print("HTTP Error")
+            print(errh.args[0])
+
+        if not response.ok:
+            print(response.text)
+            return Response(status=response.status_code)
+
+        promoter = Profile.get_by_promotinal_code(promotional_code=id)
+
+        mp_details = MercadoPagoDetails.create_from_json(
+            data=response.json(), promoter=promoter
+        )
+
+        print(mp_details)
+
+        return Response(code, status=200)
 
 
 def payment(request):

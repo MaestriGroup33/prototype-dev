@@ -18,6 +18,7 @@ class PaymentDataSerializer(serializers.Serializer):
     cpf = serializers.CharField()
     cellphone = serializers.CharField()
     course_code = serializers.CharField()
+    promoter_id = serializers.CharField()
 
     @staticmethod
     def create_from_json(json_data: dict) -> PaymentData:
@@ -35,6 +36,7 @@ class PaymentDataSerializer(serializers.Serializer):
                 campaign_id=json_data.get("campaign_id", "1"),
             ),
             cpf=json_data["cpf"],
+            promoter_code=json_data.get("promoter_code", None),
         )
 
 
