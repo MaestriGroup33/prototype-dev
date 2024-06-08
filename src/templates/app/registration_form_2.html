@@ -1,0 +1,92 @@
+<form
+  class="max-w-lg mx-auto bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 p-6 rounded-lg shadow-md"
+>
+  <label class="block mb-2 text-sm font-medium text-white" for="user_avatar_1"
+    >Upload file</label
+  >
+  <input
+    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400"
+    aria-describedby="user_avatar_help_1"
+    id="user_avatar_1"
+    type="file"
+  />
+  <div class="mt-1 text-sm text-white" id="user_avatar_help_1">
+    Adicione uma Foto RG, CNH ou Passaporte
+  </div>
+
+  <label
+    class="block mt-4 mb-2 text-sm font-medium text-white"
+    for="user_avatar_2"
+    >Upload file</label
+  >
+  <input
+    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400"
+    aria-describedby="user_avatar_help_2"
+    id="user_avatar_2"
+    type="file"
+  />
+  <div class="mt-1 text-sm text-white" id="user_avatar_help_2">
+    Adicione uma Foto de Comprovante de Residência
+  </div>
+
+  <label
+    class="block mt-4 mb-2 text-sm font-medium text-white"
+    for="user_avatar_3"
+    >Upload file</label
+  >
+  <input
+    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400"
+    aria-describedby="user_avatar_help_3"
+    id="user_avatar_3"
+    type="file"
+  />
+  <div class="mt-1 text-sm text-white" id="user_avatar_help_3">
+    Adicione uma Foto do Certificado de Conclusão de Ensino Médio
+  </div>
+
+  <label
+    class="block mt-4 mb-2 text-sm font-medium text-white"
+    for="marital_status"
+    >Estado Civil</label
+  >
+  <select
+    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400"
+    id="marital_status"
+    onchange="updateHelpText()"
+  >
+    <option value="solteira">Solteira</option>
+    <option value="casada">Casada</option>
+    <option value="viuva">Viúva</option>
+  </select>
+
+  <label
+    class="block mt-4 mb-2 text-sm font-medium text-white"
+    for="user_avatar_4"
+    >Upload file</label
+  >
+  <input
+    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-400"
+    aria-describedby="user_avatar_help_4"
+    id="user_avatar_4"
+    type="file"
+  />
+  <div class="mt-1 text-sm text-white" id="user_avatar_help_4">
+    Adicione o documento referente ao seu estado civil
+  </div>
+</form>
+
+<script>
+  function updateHelpText() {
+    var select = document.getElementById("marital_status");
+    var helpText = document.getElementById("user_avatar_help_4");
+    var selectedValue = select.options[select.selectedIndex].value;
+
+    if (selectedValue === "solteira") {
+      helpText.innerHTML = "Adicione uma Foto da Certidão de Nascimento";
+    } else if (selectedValue === "casada") {
+      helpText.innerHTML = "Adicione uma Foto da Certidão de Casamento";
+    } else if (selectedValue === "viuva") {
+      helpText.innerHTML = "Adicione uma Foto da Certidão de Óbito";
+    }
+  }
+</script>

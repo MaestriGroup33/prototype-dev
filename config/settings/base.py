@@ -94,6 +94,7 @@ LOCAL_APPS = [
     "src.modules.core.profiles",  # Perfis - app onde ficam armazenadas as informações sobre os perfis dos usuários, alunos, e todos "perfis", tem como principal identificador o CPF, cuindando assim que cada individeuo sejá único dentro de nossa plataforma.
     "src.modules.core.finances",  # Finanças - app responsável por gerenciar as informações financeiras da Maestri.group, como comissões, transações, contas a pagar, um panorama financeiro e etc...
     # ----------------------- ADD aqui outros apps da Maestri.group -----------------------#
+    "src.modules.app",
     "src.modules.edu",
     # em src.modules.edu estão todos apps referentes a Maestri.edu
     "src.modules.edu.campaigns",  # Campanhas - app onde fica toda configuração dos templates, dados das campanhas, valores, preços, modalidade de pagamento, comições, classificações e etc...
@@ -133,7 +134,7 @@ AUTH_USER_MODEL = "users.User"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "users:redirect"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
-LOGIN_URL = "/accounts/login/"
+LOGIN_URL = "/auth/login/"
 
 # PASSWORDS
 # ------------------------------------------------------------------------------

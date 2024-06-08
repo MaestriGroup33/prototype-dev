@@ -10,6 +10,8 @@ from django.views.generic import TemplateView
 from drf_spectacular.views import SpectacularAPIView
 from drf_spectacular.views import SpectacularSwaggerView
 from rest_framework.authtoken.views import obtain_auth_token
+from django.contrib.auth.decorators import login_required
+from src.modules.app import views as app_views
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -40,7 +42,63 @@ urlpatterns = [
     ),
     path(
         "app/",
-        TemplateView.as_view(template_name="promoters/app.html"),
+        include(
+            [
+                path(
+                    "",
+                    login_required(TemplateView.as_view(template_name="app/main.html")),
+                    name="app_main",
+                ),
+                path(
+                    "home/",
+                    TemplateView.as_view(template_name="app/home.html"),
+                    name="home",
+                ),
+                # path(
+                #     "finance/",
+                #     TemplateView.as_view(template_name="app/finances.html"),
+                #     name="finance",
+                # ),
+                path(
+                    "add-student/",
+                    TemplateView.as_view(template_name="app/add_student.html"),
+                    name="add_student",
+                ),
+                path(
+                    "students/",
+                    TemplateView.as_view(template_name="app/students.html"),
+                    name="students",
+                ),
+                path(
+                    "chat/",
+                    TemplateView.as_view(template_name="app/chat.html"),
+                    name="chat",
+                ),
+                path(
+                    "profile/",
+                    TemplateView.as_view(template_name="app/profile.html"),
+                    name="profile",
+                ),
+                path(
+                    "add-promoter/",
+                    TemplateView.as_view(template_name="app/add_promoter.html"),
+                    name="add_promoter",
+                ),
+                path(
+                    "edit-promo-code/",
+                    app_views.edit_promo,
+                    name="edit_promo_code",
+                ),
+                path("finance", app_views.finances, name="finance"),
+                # path("registration_form/", TemplateView.as_view(template_name="app/registration_form.html"), name="registration_form"),
+                # path("registration_form_2/", TemplateView.as_view(template_name="app/registration_form_2.html"), name="registration_form_2"),
+                path(
+                    "codename/",
+                    TemplateView.as_view(template_name="app/codename.html"),
+                    name="codename",
+                ),
+            ]
+        ),
     ),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),

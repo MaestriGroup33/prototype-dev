@@ -1,0 +1,113 @@
+{% if not mp %}
+<div
+  class="flex justify-center border-gray-200 border-b dark:border-gray-700 pb-3"
+>
+  <div>
+    <div
+      class="bg-red-100 text-red-800 text-sm text-center font-medium items-center px-2.5 py-1 rounded-md dark:bg-red-900 dark:text-red-300"
+    >
+      <p
+        class="bg-red-100 text-dark-red-800 text-sm font-large items-center px-2.5 py-1"
+      >
+        Importante! Integração
+        <a class="text-blue-600" href="{{ link }}"> MercadoPago </a> Incompleta!
+        {{ msg }}
+      </p>
+      <p
+        class="bg-red-100 text-dark-red-800 text-sm font-large items-center px-2.5 py-1"
+      >
+        Clique <a class="text-blue-600" href="{{ link }}"> aqui </a> para
+        validar sua integração
+      </p>
+    </div>
+  </div>
+</div>
+{% endif %}
+<div class="w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+  <div
+    class="flex justify-between border-gray-200 border-b dark:border-gray-700 pb-3"
+  >
+    <dl>
+      <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">
+        Saldo
+      </dt>
+      <dd class="leading-none text-3xl font-bold text-gray-900 dark:text-white">
+        R$5,45
+      </dd>
+    </dl>
+    <div>
+      <span
+        class="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300"
+      >
+        <svg
+          class="w-2.5 h-2.5 mr-1.5 text-yellow-500"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 10 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5 13V1m0 0L1 5m4-4 4 4"
+          />
+        </svg>
+        Meus ganhos 23.5%
+      </span>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-2 py-3">
+    <dl>
+      <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">
+        Ainda a Entrada
+      </dt>
+      <dd
+        class="leading-none text-xl font-bold text-green-500 dark:text-green-400"
+      >
+        R$23,35
+      </dd>
+    </dl>
+    <dl>
+      <dt class="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">
+        Saida
+      </dt>
+      <dd class="leading-none text-xl font-bold text-red-600 dark:text-red-500">
+        -R$18,30
+      </dd>
+    </dl>
+  </div>
+
+  <div id="bar-chart" class="w-full h-64 border-0"></div>
+
+  <div
+    class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between"
+  >
+    <div class="flex justify-between items-center pt-5">
+      <a
+        href="https://www.mercadopago.com.br"
+        target="_blank"
+        class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:text-blue-500 hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2"
+      >
+        Ir para mercado pago
+        <svg
+          class="w-2.5 h-2.5 ml-1.5 rtl:rotate-180"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 6 10"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 9 4-4-4-4"
+          />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>

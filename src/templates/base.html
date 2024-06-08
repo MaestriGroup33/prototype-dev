@@ -53,7 +53,8 @@
 <!-- place project specific Javascript in this file -->
 {% compress js %}
 <script type="application/javascript" src="{% static 'vendor/flowbite/dist/flowbite.js' %}"></script>
-<script type="application/javascript" src="{% static 'vendor/htmx/htmx.js' %}"></script>
+{% comment %} <script type="application/javascript" src="{% static 'vendor/htmx/htmx.js' %}"></script> {% endcomment %}
+<script src="https://unpkg.com/htmx.org@1.9.12"></script>
 <script defer src="{% static 'js/project.js' %}"></script>
 {% endcompress %}
 {% endblock javascript %}

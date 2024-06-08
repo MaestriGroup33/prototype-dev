@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+<script>
+  const html = document.querySelector('html')
+  const isLightOrAuto = localStorage.getItem('hs_theme') === 'light' || (localStorage.getItem('hs_theme') === 'auto' && !window.matchMedia('(prefers-color-scheme: dark)').matches)
+  const isDarkOrAuto = localStorage.getItem('hs_theme') === 'dark' || (localStorage.getItem('hs_theme') === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+  
+  if (isLightOrAuto && html.classList.contains('dark')) html.classList.remove('dark')
+  else if (isDarkOrAuto && html.classList.contains('light')) html.classList.remove('light')
+  else if (isDarkOrAuto && !html.classList.contains('dark')) html.classList.add('dark')
+  else if (isLightOrAuto && !html.classList.contains('light')) html.classList.add('light')
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+{% block header %}
+  {% include 'app/partials/header.html' %}
+{% endblock %}
+
+{% block main %}
+  <section id="section" class="">
+    {% block content %}
+      {% include 'app/home.html' %}
+    {% endblock %}
+  </section>
+{% endblock %}
+
+{% block modal %}
+  <div id="hs-slide-down-animation-modal" class="hs-overlay hidden fixed top-0 left-0 z-[80] w-full h-full overflow-x-hidden overflow-y-auto pointer-events-none backdrop-blur-md">
+    <div class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+      <div class="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
+        <div class="flex justify-between items-center py-3 px-4 border-b dark:border-neutral-700">
+          <button type="button" class="flex justify-center items-center w-7 h-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700" data-hs-overlay="#hs-slide-down-animation-modal">
+            <span class="sr-only">Close</span>
+            <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <div id="modal-content" class="p-4 overflow-y-auto">
+          <div class="min-h-60 flex flex-col bg-white border shadow-sm rounded-xl dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
+            <div class="flex flex-auto flex-col justify-center items-center p-4 md:p-5">
+              <div class="flex justify-center">
+                <div class="animate-spin inline-block w-6 h-6 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500" role="status" aria-label="loading">
+                  <span class="sr-only">Carregando...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
+  {% include 'app/partials/footer.html' %}
+{% endblock %}
