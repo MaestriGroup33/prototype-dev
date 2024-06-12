@@ -1,10 +1,10 @@
 # Create your views here.
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from src.modules.tools.mercado_pago.models import MercadoPagoDetails
 from src.modules.tools.mercado_pago import secrets as mp_secrets
 from src.users.models import User
-from django.contrib.auth.decorators import login_required
 
 
 @login_required

@@ -48,10 +48,10 @@ class CampaignEnrollment(APIView):
 
         pre_enrollment = campaign_enrollment.create(campaign_enrollment.initial_data)
 
-        print(pre_enrollment.cpf)
+        print("cpf, promoterId: ", pre_enrollment.cpf, pre_enrollment.promoter_id)
 
         if Profile.objects.filter(cpf=pre_enrollment.cpf).exists():
-            raise ParseError("Erro. CPF já cadastrado")
+            raise ParseError("CPF já cadastrado")
 
         profile: Profile = Profile.create(
             name=pre_enrollment.cpf,

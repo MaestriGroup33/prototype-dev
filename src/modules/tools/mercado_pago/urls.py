@@ -11,5 +11,5 @@ urlpatterns = [
     path("payment/", payment, name="payment"),
     path("payment-campaign/", Payment.as_view()),
     path("payment_response/", PaymentResponse.as_view()),
-    path("auth/<id>/", PaymentAuth.as_view()),
+    path("auth/", PaymentAuth.as_view()),
 ]

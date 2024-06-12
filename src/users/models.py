@@ -50,7 +50,7 @@ class User(AbstractUser):
         on_delete=models.SET_NULL,
     )
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = [""]
+    REQUIRED_FIELDS = ["username, profile"]
 
     objects: ClassVar[UserManager] = UserManager()
 

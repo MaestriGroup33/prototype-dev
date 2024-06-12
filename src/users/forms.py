@@ -2,7 +2,7 @@ from allauth.account.forms import SignupForm
 from allauth.socialaccount.forms import SignupForm as SocialSignupForm
 from django.contrib.auth import forms as admin_forms
 from django.utils.translation import gettext_lazy as _
-from django.forms import EmailField
+from django.forms import EmailField, CharField
 
 
 from .models import User
@@ -11,7 +11,10 @@ from .models import User
 class UserAdminChangeForm(admin_forms.UserChangeForm):
     class Meta(admin_forms.UserChangeForm.Meta):
         model = User
-        field_classes = {"email": EmailField}
+        field_classes = {
+            "email": EmailField,
+            "username": CharField,
+        }
 
 
 class UserAdminCreationForm(admin_forms.UserCreationForm):
@@ -22,8 +25,11 @@ class UserAdminCreationForm(admin_forms.UserCreationForm):
 
     class Meta(admin_forms.UserCreationForm.Meta):
         model = User
-        fields = ("email",)
-        field_classes = {"email": EmailField}
+        fields = ("email", "username")
+        field_classes = {
+            "email": EmailField,
+            "username": CharField,
+        }
         error_messages = {
             "email": {"unique": _("This email has already been taken.")},
         }
@@ -55,7 +61,7 @@ from .models import User
 class UserCreationForm(forms.UserCreationForm):
     class Meta(forms.UserCreationForm.Meta):
         model = User
-        fields = forms.UserCreationForm.Meta.fields + ("email",)
+        fields = forms.UserCreationForm.Meta.fields + ("email", "username", "profile")
 
     def __init__(self, *args, **kwargs):  # Adiciona
         super().__init__(*args, **kwargs)

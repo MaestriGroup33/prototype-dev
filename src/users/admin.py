@@ -19,7 +19,7 @@ class UserAdmin(auth_admin.UserAdmin):
     form = UserAdminChangeForm
     add_form = UserAdminCreationForm
     fieldsets = (
-        (None, {"fields": ("email", "password")}),
+        (None, {"fields": ("email", "password", "username", "profile")}),
         (_("Personal info"), {"fields": ("name",)}),
         (
             _("Permissions"),
@@ -30,7 +30,6 @@ class UserAdmin(auth_admin.UserAdmin):
                     "is_superuser",
                     "groups",
                     "user_permissions",
-                    "profile",
                 ),
             },
         ),
@@ -44,7 +43,7 @@ class UserAdmin(auth_admin.UserAdmin):
             None,
             {
                 "classes": ("wide",),
-                "fields": ("email", "password1", "password2"),
+                "fields": ("email", "password1", "password2", "username", "profile"),
             },
         ),
     )

@@ -39,6 +39,8 @@ class Payment(APIView):
 
         payment: PaymentData = PaymentDataSerializer.create_from_json(request.data)
 
+        print(payment)
+
         reference = uuid.uuid4()
 
         payment_data = {
@@ -48,13 +50,28 @@ class Payment(APIView):
             "payment_method_id": payment.payment_method_id,
             "installments": payment.installments,
             "payer": {"email": payment.payer.email},
-            "notification_url": "https://maestri.group/tools/mp/payment_response/",
+            "notification_url": "https://maestri.tech/tools/mp/payment_response/",
             "external_reference": str(reference),
             "statement_descriptor": "Pagamento Matricula Maestri.edu",
+            "additional_info": {
+                "items": [
+                    {
+                        "id": "a130356d-78ef-43c1-b9e2-1158f5e76c62",
+                        "title": "Curso Maestri.edu",
+                        "description": "Matricula inicial para cursos da faculdade Maestri.edu",
+                        "category_id": "others",
+                        "quantity": 1,
+                        "unit_price": 60,
+                        "type": "electronics",
+                    }
+                ]
+            },
         }
 
         if isinstance(payment_data, ListSerializer):
             return Response("d")
+
+        print("code ", payment.promoter_code)
 
         access_token = secrets.access_token
 
@@ -62,8 +79,11 @@ class Payment(APIView):
             promotional_code=payment.promoter_code
         )
         mp_details = MercadoPagoDetails.objects.get(promoter=promoter)
+        print(mp_details.access_token)
         access_token = mp_details.access_token
-        payment_data["application_fee"] = 10
+        payment_data["application_fee"] = 15
+
+        print(access_token)
 
         sdk = mercadopago.SDK(access_token)
         request_options = mercadopago.config.RequestOptions()
@@ -71,7 +91,8 @@ class Payment(APIView):
 
         result = sdk.payment().create(payment_data, request_options)
 
-        print("\n result[reponse]", result["response"])
+        print("\n result: ", result)
+        print("\n result[response]", result["response"])
 
         if isinstance(result["response"]["status"], int):
             if result["response"]["status"] >= 400:
@@ -87,6 +108,15 @@ class Payment(APIView):
             return Response(
                 data={
                     "message": "O pagamento foi rejeitado",
+                    "id": result["response"]["id"],
+                },
+                status=400,
+            )
+
+        if result["response"]["status"] == "in_process":
+            return Response(
+                data={
+                    "message": "O pagamento está sendo processado",
                     "id": result["response"]["id"],
                 },
                 status=400,
@@ -176,13 +206,12 @@ class PaymentResponse(APIView):
             digestmod=hashlib.sha256,
         )
 
-        # Obtain the hash result as a hexadecimal string
         sha = hmac_obj.hexdigest()
         if sha == hash:
-            # HMAC verification passed
+            print(manifest)
             print("HMAC verification passed")
         else:
-            # HMAC verification failed
+            print(manifest)
             print("HMAC verification failed")
             return Response(status=400)
 
@@ -232,17 +261,19 @@ class PaymentResponse(APIView):
         return Response(status=200)
 
 
+from rest_framework.permissions import IsAuthenticated
+
+
 @extend_schema(request=None, responses=None)
 class PaymentAuth(APIView):
-    permission_classes = []  # disables permission
 
-    def get(self, request, id: str):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
 
         user: User = request.user
 
-        user.profile
-
-        return None
+        print(user)
 
         code: str = request.GET.get("code")
 
@@ -257,7 +288,7 @@ class PaymentAuth(APIView):
                 "client_secret": f"{secrets.client_secret}",
                 "grant_type": "authorization_code",
                 "code": f"{code}",
-                "redirect_uri": "https://maestri.tech/tools/mp/auth/maestri33/",
+                "redirect_uri": "https://maestri.tech/tools/mp/auth/",
                 "state": str(uuid.uuid4()),
             },
         )
@@ -268,17 +299,16 @@ class PaymentAuth(APIView):
             print("HTTP Error")
             print(errh.args[0])
 
-        if not response.ok:
+        if not response.ok or user.profile is None:
             print(response.text)
             return Response(status=response.status_code)
 
-        promoter = Profile.get_by_promotinal_code(promotional_code=id)
-
         mp_details = MercadoPagoDetails.create_from_json(
-            data=response.json(), promoter=promoter
+            data=response.json(), promoter=user.profile
         )
 
         print(mp_details)
+        return render(request, "app/main.html")
 
         return Response(code, status=200)
 
